@@ -169,6 +169,15 @@ io.on("connection", (socket) => {
     switch (msg.room) {
       case 1:
         if (room1.length == 2) {
+          if (jugadasRoom1.length == 1) {
+            if (msg.username == jugadasRoom1[0].username) {
+              let msg = {
+                msg: `Ya jugaste esta ronda`,
+              };
+              io.to(socket.id).emit("error", msg);
+              return;
+            }
+          }
           jugadasRoom1.push({ jugada: msg.jugada, username: msg.username });
           console.log("Jugadas de room 1: ");
           console.log(jugadasRoom1);
@@ -187,6 +196,15 @@ io.on("connection", (socket) => {
         break;
       case 2:
         if (room2.length == 2) {
+          if (jugadasRoom2.length == 1) {
+            if (msg.username == jugadasRoom2[0].username) {
+              let msg = {
+                msg: `Ya jugaste esta ronda`,
+              };
+              io.to(socket.id).emit("error", msg);
+              return;
+            }
+          }
           jugadasRoom2.push({ jugada: msg.jugada, username: msg.username });
           if (jugadasRoom2.length == 2) {
             let resultado = resolverPartida(jugadasRoom2[0], jugadasRoom2[1]);
@@ -201,6 +219,15 @@ io.on("connection", (socket) => {
         }
         break;
       case 3:
+        if (jugadasRoom3.length == 1) {
+          if (msg.username == jugadasRoom3[0].username) {
+            let msg = {
+              msg: `Ya jugaste esta ronda`,
+            };
+            io.to(socket.id).emit("error", msg);
+            return;
+          }
+        }
         if (room3.length == 2) {
           jugadasRoom3.push({ jugada: msg.jugada, username: msg.username });
           if (jugadasRoom3.length == 2) {
@@ -216,6 +243,15 @@ io.on("connection", (socket) => {
         }
         break;
       case 4:
+        if (jugadasRoom4.length == 1) {
+          if (msg.username == jugadasRoom4[0].username) {
+            let msg = {
+              msg: `Ya jugaste esta ronda`,
+            };
+            io.to(socket.id).emit("error", msg);
+            return;
+          }
+        }
         if (room4.length == 2) {
           jugadasRoom4.push({ jugada: msg.jugada, username: msg.username });
           if (jugadasRoom4.length == 2) {
