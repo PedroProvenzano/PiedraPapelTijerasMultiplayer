@@ -1,4 +1,4 @@
-const URL = "http://localhost:3000";
+const URL = "https://walter-multiplayer.herokuapp.com/";
 const socket = io(URL, { autoConnect: false });
 
 // Datos de usuario
