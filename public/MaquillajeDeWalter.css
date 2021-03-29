@@ -1,0 +1,176 @@
+@import url("https://fonts.googleapis.com/css2?family=Akaya+Kanadaka&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  color: white;
+  font-family: "Akaya Kanadaka", cursive;
+  user-select: none;
+}
+body {
+  background-color: black;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  height: 100vh;
+}
+h1 {
+  font-size: 5vw;
+  margin: 2vw 0 5vw 0;
+}
+.respuesta {
+  height: 7vw;
+  font-size: 6vw;
+  transform: rotate(180deg);
+}
+.walterHabla {
+  font-size: 2.5vw;
+}
+
+/* Login  */
+.login {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.inputUsername {
+  height: 3vw;
+  width: 15vw;
+  color: black;
+  font-size: 2vw;
+  padding: 0.2vw;
+  margin-right: 0.2vw;
+}
+.iniciarBoton {
+  height: 3vw;
+  width: 6vw;
+  font-size: 1.4vw;
+  color: black;
+}
+
+/* Lobby */
+.lobby {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 40vw;
+  width: 50vw;
+}
+.roomContainer {
+  display: grid;
+  width: 50vw;
+  height: 30vw;
+  justify-items: center;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+}
+.usernameTitle {
+  margin-bottom: 5vw;
+  font-size: 4vw;
+}
+.botonRoom {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 5px solid white;
+  height: 90%;
+  width: 15vw;
+  font-size: 4vw;
+  border-radius: 20px;
+  transition: all 200ms;
+}
+.botonRoom:hover {
+  cursor: pointer;
+  font-weight: 600;
+}
+
+/* Juego */
+.contenedor {
+  display: none; /* flex */
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  height: 50vw;
+  width: 50vw;
+}
+.contenedor-botones {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 40vw;
+}
+.boton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 5px solid white;
+  height: 10vw;
+  width: 10vw;
+  font-size: 5vw;
+  border-radius: 20px;
+  transition: all 200ms;
+}
+.boton:hover i {
+  transform: rotate(20deg);
+  transition: 200ms transform;
+  cursor: pointer;
+}
+.boton:hover {
+  cursor: pointer;
+}
+.resultado {
+  font-size: 3vw;
+}
+.contenedor-resultados {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.nombres-resultado {
+  font-size: 2vw;
+}
+#tijera {
+  transform: rotate(90deg);
+}
+
+/* mobile */
+
+@media (max-width: 570px) {
+  h1 {
+    font-size: 10vw;
+  }
+  .respuesta {
+    height: 25vw;
+    font-size: 20vw;
+    transform: rotate(180deg);
+  }
+  .walterHabla {
+    font-size: 6vw;
+  }
+  .contenedor {
+    height: 130vw;
+    width: 100vw;
+  }
+  .contenedor-botones {
+    width: 100vw;
+  }
+  .boton {
+    width: 26vw;
+    height: 26vw;
+    font-size: 15vw;
+  }
+  .nombres-resultado {
+    font-size: 9vw;
+  }
+  .resultado {
+    font-size: 13vw;
+  }
+  .contenedor-resultados {
+    height: 50vw;
+  }
+}

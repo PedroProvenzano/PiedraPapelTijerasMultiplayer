@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link rel="stylesheet" href="./MaquillajeDeWalter.css" />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"
+      integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk"
+      crossorigin="anonymous"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Walter</title>
+  </head>
+  <body>
+    <h1>Walter multiplayer</h1>
+
+    <section class="login" id="login">
+      <input type="text" id="inputUsername" class="inputUsername" />
+      <button class="iniciarBoton" id="iniciarBoton">Iniciar</button>
+    </section>
+
+    <section class="lobby" id="lobby">
+      <h2 class="usernameTitle" id="usernameTitle">Username</h2>
+      <div class="roomContainer">
+        <div class="botonRoom" id="room1">
+          <p>Room 1</p>
+          <p id="room1Users">0/2</p>
+        </div>
+        <div class="botonRoom" id="room2">
+          <p>Room 2</p>
+          <p id="room2Users">0/2</p>
+        </div>
+        <div class="botonRoom" id="room3">
+          <p>Room 3</p>
+          <p id="room3Users">0/2</p>
+        </div>
+        <div class="botonRoom" id="room4">
+          <p>Room 4</p>
+          <p id="room4Users">0/2</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="contenedor" id="contenedor">
+      <div class="respuesta" id="respuesta">
+        <i class="fas fa-hand-point-up"></i>
+      </div>
+      <p class="walterHabla" id="walterHabla">
+        Hola, juguemos piedra, papel o tijeras..
+      </p>
+      <div class="contenedor-botones">
+        <div class="boton" id="piedra">
+          <i class="fas fa-hand-rock"></i>
+        </div>
+        <div class="boton" id="papel">
+          <i class="fas fa-hand-paper"></i>
+        </div>
+        <div class="boton" id="tijera">
+          <i class="fas fa-hand-scissors"></i>
+        </div>
+      </div>
+      <div class="contenedor-resultados">
+        <p class="nombres-resultado" id="nombres-resultado">
+          Jugador1 - Jugador2
+        </p>
+        <p class="resultado" id="resultado">0 - 0</p>
+      </div>
+    </section>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="./CerebroDeWalter.js"></script>
+  </body>
+</html>
