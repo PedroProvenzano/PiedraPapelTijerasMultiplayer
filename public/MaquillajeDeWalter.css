@@ -44,10 +44,19 @@ h1 {
   margin-right: 0.2vw;
 }
 .iniciarBoton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   height: 3vw;
   width: 6vw;
   font-size: 1.4vw;
   color: black;
+  border: 5px outset grey;
+  background-color: aliceblue;
+}
+.iniciarBoton:hover {
+  cursor: pointer;
+  background-color: antiquewhite;
 }
 
 /* Lobby */
@@ -190,12 +199,12 @@ h1 {
   }
   .inputUsername {
     height: 8vw;
-    width: 30vw;
+    width: 35vw;
     font-size: 8vw;
   }
   .iniciarBoton {
     height: 8vw;
-    width: 10vw;
+    width: 15vw;
     font-size: 3.4vw;
   }
 }
