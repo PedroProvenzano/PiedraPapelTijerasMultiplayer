@@ -335,6 +335,7 @@ io.on("connection", (socket) => {
   // Jugador se retira de la sala
   socket.on("retirarse", (msg) => {
     socket.leave(`room${msg.room}`);
+    console.log(socket.username);
     switch (msg.room) {
       case 1:
         let index1 = room1.indexOf(socket.username);
