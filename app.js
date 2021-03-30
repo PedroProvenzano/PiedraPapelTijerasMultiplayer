@@ -338,35 +338,51 @@ io.on("connection", (socket) => {
     console.log(socket.username);
     switch (msg.room) {
       case 1:
-        let index1 = room1.indexOf(socket.username);
-        if (index1 == 0) {
-          room1 = room1.splice(0, 1);
+        if (room1.length == 2) {
+          let index1 = room1.indexOf(socket.username);
+          if (index1 == 0) {
+            room1.splice(0, 1);
+          } else {
+            room1.pop();
+          }
         } else {
-          room1.pop();
+          room1 = [];
         }
         break;
       case 2:
-        let index2 = room2.indexOf(socket.username);
-        if (index2 == 0) {
-          room2 = room2.splice(0, 1);
+        if (room2.length == 2) {
+          let index2 = room2.indexOf(socket.username);
+          if (index2 == 0) {
+            room2.splice(0, 1);
+          } else {
+            room2.pop();
+          }
         } else {
-          room2.pop();
+          room2 = [];
         }
         break;
       case 3:
-        let index3 = room3.indexOf(socket.username);
-        if (index3 == 0) {
-          room3 = room3.splice(0, 1);
+        if (room3.length == 2) {
+          let index3 = room3.indexOf(socket.username);
+          if (index3 == 0) {
+            room3.splice(0, 1);
+          } else {
+            room3.pop();
+          }
         } else {
-          room3.pop();
+          room3 = [];
         }
         break;
       case 4:
-        let index4 = room4.indexOf(socket.username);
-        if (index4 == 0) {
-          room4 = room4.splice(0, 1);
+        if (room4.length == 2) {
+          let index4 = room4.indexOf(socket.username);
+          if (index4 == 0) {
+            room4.splice(0, 1);
+          } else {
+            room4.pop();
+          }
         } else {
-          room4.pop();
+          room4 = [];
         }
         break;
     }
