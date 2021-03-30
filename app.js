@@ -341,7 +341,7 @@ io.on("connection", (socket) => {
         if (index1 == 0) {
           room1 = room1.splice(0, 1);
         } else {
-          room1 = room1.pop();
+          room1.pop();
         }
         break;
       case 2:
@@ -349,7 +349,7 @@ io.on("connection", (socket) => {
         if (index2 == 0) {
           room2 = room2.splice(0, 1);
         } else {
-          room2 = room2.pop();
+          room2.pop();
         }
         break;
       case 3:
@@ -357,7 +357,7 @@ io.on("connection", (socket) => {
         if (index3 == 0) {
           room3 = room3.splice(0, 1);
         } else {
-          room3 = room3.pop();
+          room3.pop();
         }
         break;
       case 4:
@@ -365,7 +365,7 @@ io.on("connection", (socket) => {
         if (index4 == 0) {
           room4 = room4.splice(0, 1);
         } else {
-          room4 = room4.pop();
+          room4.pop();
         }
         break;
         let salas = {
@@ -390,7 +390,7 @@ io.on("connection", (socket) => {
         if (index == 0) {
           room = room.splice(0, 1);
         } else {
-          room = room.pop();
+          room.pop();
         }
       }
     }
