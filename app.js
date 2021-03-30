@@ -6,8 +6,8 @@ const http = require("http").Server(app);
 const io = require("socket.io")(http);
 const port = process.env.PORT;
 const cors = require("cors");
-
-// mongoDB();
+const User = require("./Models/User");
+mongoDB();
 // Middleware
 app.use(cors());
 app.use(express.static("public"));
@@ -40,9 +40,23 @@ let puntajeRoom2 = [0, 0];
 let puntajeRoom3 = [0, 0];
 let puntajeRoom4 = [0, 0];
 
-io.on("connection", (socket) => {
+io.on("connection", async (socket) => {
   // Creacion de usuario
   const users = [];
+  let ganadasUser;
+  let perdidasUser;
+  const getUserData = await User.findOne({ username: socket.username }).exec();
+  if (getUserData == null) {
+    const nuevoUser = new User({
+      username: socket.username,
+      ganadas: 0,
+      perdidas: 0,
+    });
+    nuevoUser.save().then((data) => {
+      ganadasUser = data.ganadas;
+      perdidasUser = data.perdidas;
+    });
+  }
   for (let [id, socket] of io.of("/").sockets) {
     for (let user of users) {
       if (user.username == socket.username) {
@@ -57,6 +71,8 @@ io.on("connection", (socket) => {
     users.push({
       userID: id,
       username: socket.username,
+      ganadas: ganadasUser,
+      perdidas: perdidasUser,
     });
   }
   // Si todo sale bien conecta y avisa que se conecto
@@ -172,7 +188,7 @@ io.on("connection", (socket) => {
     }
   });
   // En partida
-  socket.on("jugada", (msg) => {
+  socket.on("jugada", async (msg) => {
     switch (msg.room) {
       case 1:
         if (room1.length == 2) {
@@ -198,12 +214,47 @@ io.on("connection", (socket) => {
                 msg: `Partida finalizada, ganador ${room1[0]}`,
                 ganador: room1[0],
               };
+              // Sumarle ganada al usuario
+              const usuarioUp = await User.findOne({
+                username: room1[0],
+              }).exec();
+              let ganadasUsuario = usuarioUp.ganadas++;
+              usuarioUp.update({ ganadas: ganadasUsuario }).exec();
+              let indexUsuarioUp = users.indexOf(room1[0]);
+              users[indexUsuarioUp].ganadas = ganadasUsuario;
+
+              // Sumarle perdida al usuario
+              const usuarioUpPer = await User.findOne({
+                username: room1[1],
+              }).exec();
+              let perdidasUsuarioPer = usuarioUpPer.perdidas++;
+              usuarioUpPer.update({ perdidas: perdidasUsuarioPer }).exec();
+              let indexUsuarioUpPer = users.indexOf(room1[1]);
+              users[indexUsuarioUpPer].perdidas = perdidasUsuarioPer;
+
               io.to("room1").emit("terminar partida", finMsg);
             } else if (puntajeRoom1[1] == 5) {
               let finMsg = {
                 msg: `Partida finalizada, ganador ${room1[1]}`,
                 ganador: room1[1],
               };
+              // Sumarle ganada al usuario
+              const usuarioUp = await User.findOne({
+                username: room1[1],
+              }).exec();
+              let ganadasUsuario = usuarioUp.ganadas++;
+              usuarioUp.update({ ganadas: ganadasUsuario }).exec();
+              let indexUsuarioUp = users.indexOf(room1[1]);
+              users[indexUsuarioUp].ganadas = ganadasUsuario;
+
+              // Sumarle perdida al usuario
+              const usuarioUpPer = await User.findOne({
+                username: room1[0],
+              }).exec();
+              let perdidasUsuarioPer = usuarioUpPer.perdidas++;
+              usuarioUpPer.update({ perdidas: perdidasUsuarioPer }).exec();
+              let indexUsuarioUpPer = users.indexOf(room1[0]);
+              users[indexUsuarioUpPer].perdidas = perdidasUsuarioPer;
               io.to("room1").emit("terminar partida", finMsg);
             }
             jugadasRoom1 = [];

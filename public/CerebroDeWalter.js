@@ -1,6 +1,6 @@
 const URL = "https://walter-multiplayer.herokuapp.com/";
 const socket = io(URL, { autoConnect: false });
-
+let ArrayUsuarios = [];
 // Datos de usuario
 let User = {
   username: "",
@@ -28,17 +28,31 @@ const seccionLobby = document.getElementById("lobby");
 const seccionJuego = document.getElementById("contenedor");
 const usernameTitle = document.getElementById("usernameTitle");
 const nombresResultado = document.getElementById("nombres-resultado");
+const listaUsuarios = document.getElementById("listaUsuarios");
 // Socket IO
 
 // Recibir usuarios
 socket.on("users", (users) => {
   users.forEach((user) => {
-    console.log(user);
+    // Imprimir jugadores
+    listaUsuarios.innerHTML = "";
+    const divUsuario = document.createElement("div");
+    divUsuario.setAttribute("class", "usuario");
+    const parrNombre = document.createElement("p");
+    parrNombre.setAttribute("class", "nombre");
+    parrNombre.innerText = user.username;
+    divUsuario.append(parrNombre);
+    const parrPuntaje = document.createElement("p");
+    parrPuntaje.setAttribute("class", "puntaje");
+    parrPuntaje.innerText = `W ${user.ganadas} / L ${user.perdidas}`;
+    divUsuario.append(parrPuntaje);
+    listaUsuarios.append(divUsuario);
     if (user.username == User.username) {
       User.id = user.userID;
       let usuario = {
         id: user.userID,
         username: user.username,
+        points: user.points,
       };
       let save = JSON.stringify(usuario);
       localStorage.setItem("User", save);

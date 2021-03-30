@@ -157,6 +157,28 @@ h1 {
 .botonSalir:hover {
   cursor: pointer;
 }
+
+/* Ranking */
+.listaUsuarios {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 10vh;
+  left: 2vw;
+  border: 5px solid white;
+  width: 15vw;
+  height: auto;
+}
+.usuariosOnline {
+  font-size: 2.2vw;
+}
+.usuario {
+  font-size: 1.5vw;
+  margin-top: 1vw;
+}
+
 /* mobile */
 
 @media (max-width: 570px) {
