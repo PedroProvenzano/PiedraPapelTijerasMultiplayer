@@ -368,16 +368,16 @@ io.on("connection", (socket) => {
           room4.pop();
         }
         break;
-        let salas = {
-          rooms: [room1, room2, room3, room4],
-        };
-        socket.broadcast.emit("datos de salas", salas);
-        let msge = {
-          user: socket.username,
-          room: msg.room,
-        };
-        io.to(socket.id).emit("retirado", msge);
     }
+    let salas = {
+      rooms: [room1, room2, room3, room4],
+    };
+    socket.broadcast.emit("datos de salas", salas);
+    let msge = {
+      user: socket.username,
+      room: msg.room,
+    };
+    io.to(socket.id).emit("retirado", msge);
   });
 
   // Al desconectarse
