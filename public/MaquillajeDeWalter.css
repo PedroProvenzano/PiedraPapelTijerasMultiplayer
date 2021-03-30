@@ -148,7 +148,8 @@ h1 {
 }
 .botonSalir {
   border: white 5px outset;
-  padding: 2vw;
+  height: 4vw;
+  width: 7vw;
   display: flex;
   justify-content: center;
   align-items: center;
