@@ -5,9 +5,11 @@ const app = express();
 const http = require("http").Server(app);
 const io = require("socket.io")(http);
 const port = process.env.PORT;
+const cors = require("cors");
 
 // mongoDB();
 // Middleware
+app.use(cors());
 app.use(express.static("public"));
 
 app.get("/", (req, res) => {
@@ -23,10 +25,10 @@ io.use((socket, next) => {
   next();
 });
 
-const room1 = [];
-const room2 = [];
-const room3 = [];
-const room4 = [];
+let room1 = [];
+let room2 = [];
+let room3 = [];
+let room4 = [];
 
 let jugadasRoom1 = [];
 let jugadasRoom2 = [];
