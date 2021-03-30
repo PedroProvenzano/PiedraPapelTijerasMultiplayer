@@ -372,7 +372,7 @@ io.on("connection", (socket) => {
     let salas = {
       rooms: [room1, room2, room3, room4],
     };
-    socket.broadcast.emit("datos de salas", salas);
+    socket.emit("datos de salas", salas);
     let msge = {
       user: socket.username,
       room: msg.room,
