@@ -60,7 +60,34 @@ socket.on("datos de salas", (msg) => {
   for (let room of msg.rooms) {
     actualizarSalas(sala, room);
     sala++;
+    if (User.puedeJugar && room == User.roomConnected) {
+      if (room.length == 1) {
+        // Desconectarse y dar por ganada la partida
+        let msge = {
+          room: User.roomConnected,
+        };
+        socket.emit("retirarse", msge);
+      }
+    }
   }
+});
+// Confirmar retirada
+socket.on("retirado", (msg) => {
+  User.roomConnected = 0;
+  seccionJuego.style.display = "none";
+  seccionLobby.style.display = "flex";
+});
+
+const botonSalir = document.getElementById("botonSalir");
+botonSalir.addEventListener("click", () => {
+  let msge = {
+    room: User.roomConnected,
+  };
+  socket.emit("retirarse", msge);
+});
+// Terminar partida
+socket.on("terminar partida", (msg) => {
+  socket.emit(retirarse, { room: User.roomConnected });
 });
 // Conectar a los rooms
 // Room 1

@@ -33,6 +33,11 @@ let jugadasRoom2 = [];
 let jugadasRoom3 = [];
 let jugadasRoom4 = [];
 
+let puntajeRoom1 = [0, 0];
+let puntajeRoom2 = [0, 0];
+let puntajeRoom3 = [0, 0];
+let puntajeRoom4 = [0, 0];
+
 io.on("connection", (socket) => {
   // Creacion de usuario
   const users = [];
@@ -185,6 +190,20 @@ io.on("connection", (socket) => {
             let resultado = resolverPartida(jugadasRoom1[0], jugadasRoom1[1]);
             console.log(`Emitiendo resultado, ganador... ${resultado}`);
             io.to(`room1`).emit("resultado", resultado);
+            sumarPuntos(resultado, 1);
+            if (puntajeRoom1[0] == 5) {
+              let finMsg = {
+                msg: `Partida finalizada, ganador ${room1[0]}`,
+                ganador: room1[0],
+              };
+              io.to("room1").emit("terminar partida", finMsg);
+            } else if (puntajeRoom1[1] == 5) {
+              let finMsg = {
+                msg: `Partida finalizada, ganador ${room1[1]}`,
+                ganador: room1[1],
+              };
+              io.to("room1").emit("terminar partida", finMsg);
+            }
             jugadasRoom1 = [];
           }
         } else {
@@ -209,6 +228,20 @@ io.on("connection", (socket) => {
           if (jugadasRoom2.length == 2) {
             let resultado = resolverPartida(jugadasRoom2[0], jugadasRoom2[1]);
             io.to(`room2`).emit("resultado", resultado);
+            sumarPuntos(resultado, 2);
+            if (puntajeRoom2[0] == 5) {
+              let finMsg = {
+                msg: `Partida finalizada, ganador ${room2[0]}`,
+                ganador: room2[0],
+              };
+              io.to("room2").emit("terminar partida", finMsg);
+            } else if (puntajeRoom2[1] == 5) {
+              let finMsg = {
+                msg: `Partida finalizada, ganador ${room2[1]}`,
+                ganador: room2[1],
+              };
+              io.to("room2").emit("terminar partida", finMsg);
+            }
             jugadasRoom2 = [];
           }
         } else {
@@ -233,6 +266,20 @@ io.on("connection", (socket) => {
           if (jugadasRoom3.length == 2) {
             let resultado = resolverPartida(jugadasRoom3[0], jugadasRoom3[1]);
             io.to(`room3`).emit("resultado", resultado);
+            sumarPuntos(resultado, 3);
+            if (puntajeRoom3[0] == 5) {
+              let finMsg = {
+                msg: `Partida finalizada, ganador ${room3[0]}`,
+                ganador: room3[0],
+              };
+              io.to("room3").emit("terminar partida", finMsg);
+            } else if (puntajeRoom3[1] == 5) {
+              let finMsg = {
+                msg: `Partida finalizada, ganador ${room3[1]}`,
+                ganador: room3[1],
+              };
+              io.to("room3").emit("terminar partida", finMsg);
+            }
             jugadasRoom3 = [];
           }
         } else {
@@ -257,6 +304,20 @@ io.on("connection", (socket) => {
           if (jugadasRoom4.length == 2) {
             let resultado = resolverPartida(jugadasRoom4[0], jugadasRoom4[1]);
             io.to(`room4`).emit("resultado", resultado);
+            sumarPuntos(resultado, 4);
+            if (puntajeRoom4[0] == 5) {
+              let finMsg = {
+                msg: `Partida finalizada, ganador ${room4[0]}`,
+                ganador: room4[0],
+              };
+              io.to("room4").emit("terminar partida", finMsg);
+            } else if (puntajeRoom4[1] == 5) {
+              let finMsg = {
+                msg: `Partida finalizada, ganador ${room4[1]}`,
+                ganador: room4[1],
+              };
+              io.to("room4").emit("terminar partida", finMsg);
+            }
             jugadasRoom4 = [];
           }
         } else {
@@ -266,6 +327,54 @@ io.on("connection", (socket) => {
           io.to(socket.id).emit("error", msg);
         }
         break;
+    }
+  });
+
+  // Jugador se retira de la sala
+  socket.on("retirarse", (msg) => {
+    socket.leave(`room${msg.room}`);
+    switch (msg.room) {
+      case 1:
+        let index1 = room1.indexOf(socket.username);
+        if (index1 == 0) {
+          room1 = room1.splice(0, 1);
+        } else {
+          room1 = room1.pop();
+        }
+        break;
+      case 2:
+        let index2 = room2.indexOf(socket.username);
+        if (index2 == 0) {
+          room2 = room2.splice(0, 1);
+        } else {
+          room2 = room2.pop();
+        }
+        break;
+      case 3:
+        let index3 = room3.indexOf(socket.username);
+        if (index3 == 0) {
+          room3 = room3.splice(0, 1);
+        } else {
+          room3 = room3.pop();
+        }
+        break;
+      case 4:
+        let index4 = room4.indexOf(socket.username);
+        if (index4 == 0) {
+          room4 = room4.splice(0, 1);
+        } else {
+          room4 = room4.pop();
+        }
+        break;
+        let salas = {
+          rooms: [room1, room2, room3, room4],
+        };
+        socket.broadcast.emit("datos de salas", salas);
+        let msge = {
+          user: socket.username,
+          room: msg.room,
+        };
+        io.to(socket.id).emit("retirado", msge);
     }
   });
 
@@ -328,4 +437,29 @@ function resolverPartida(JugadorUno, JugadorDos) {
       break;
   }
   return ganador;
+}
+
+function sumarPuntos(resultado, room) {
+  if (resultado == "Empate") {
+    return;
+  } else {
+    switch (room) {
+      case 1:
+        let index1 = room1.indexOf(resultado);
+        puntajeRoom1[index1]++;
+        break;
+      case 2:
+        let index2 = room1.indexOf(resultado);
+        puntajeRoom2[index2]++;
+        break;
+      case 3:
+        let index3 = room1.indexOf(resultado);
+        puntajeRoom3[index3]++;
+        break;
+      case 4:
+        let index4 = room1.indexOf(resultado);
+        puntajeRoom4[index4]++;
+        break;
+    }
+  }
 }
