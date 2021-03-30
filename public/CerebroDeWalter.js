@@ -80,6 +80,7 @@ socket.on("retirado", (msg) => {
 
 const botonSalir = document.getElementById("botonSalir");
 botonSalir.addEventListener("click", () => {
+  console.log("Retirandose");
   let msge = {
     room: User.roomConnected,
   };
@@ -87,7 +88,7 @@ botonSalir.addEventListener("click", () => {
 });
 // Terminar partida
 socket.on("terminar partida", (msg) => {
-  socket.emit(retirarse, { room: User.roomConnected });
+  socket.emit("retirarse", { room: User.roomConnected });
 });
 // Conectar a los rooms
 // Room 1
