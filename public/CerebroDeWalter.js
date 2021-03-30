@@ -61,7 +61,7 @@ socket.on("datos de salas", (msg) => {
     actualizarSalas(sala, room);
     sala++;
     if (User.puedeJugar && room == User.roomConnected) {
-      console.log("Termino la partida");
+      console.log("Termino la partida, se retiro un jugador");
       if (room.length == 1) {
         // Desconectarse y dar por ganada la partida
         let msge = {
